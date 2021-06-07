@@ -1,0 +1,443 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.x-Grid1{
+  margin-left: 5%;
+  width: 90%;
+  padding: 1%;
+}
+.x-Grid2{
+  margin-left: 5%!important;
+  width: 90%!important;
+}
+.x-Grid3{
+  margin-left: 10%!important;
+  width: 80%!important;
+}
+.x-Grid4{
+  margin-left: 20%!important;
+  width: 60%!important;
+}
+
+.x-font1{
+  font-size: 30px;
+  font-family: initial;
+  font-weight: 600;
+  color: #333333;
+}
+.x-font2{
+  font-size: 50px;
+  color:#37003c;
+  font-weight: 700;
+}
+.x-font3{
+  font-size: 35px;
+  color:black;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font4{
+  font-size: 20px;
+  color:black;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font5{
+  font-size: 15px;
+  color:black;
+  font-weight: 500;
+  font-family: initial;
+}
+.x-font6{
+  font-size: 35px;
+  color:green;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font7{
+  font-size: 20px;
+  color:red;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font8{
+  font-size: 20px;
+  color:white;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font9{
+  font-size: 25px;
+  color:#10b571;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font10{
+  font-size: 20px;
+  color:#10b571;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font11{
+  font-size: 20px;
+  color:white;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font12{
+  font-size: 25px;
+  color:black;
+  font-weight: 600;
+  font-family: initial;
+  line-height: 60px;
+}
+.x-font13{
+  font-size: 14px;
+  color:#10b571;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-font14{
+  font-size: 16px;
+  color:#37003c;
+  font-weight: 600;
+  font-family: initial;
+}
+.x-button1{
+  background-color: #37003c;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.x-button2{
+  width: 220px;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 3%;
+}
+
+.x-button3{
+  width: 150px;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 1%;
+}
+.x-button4{
+  width: 33%;
+  background-color: #37003c;
+  color: white;
+  font-size: 25px;
+  font-family: initial;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 1%;
+}
+.x-button5{
+  width: 50%;
+  font-size: 18px;
+  font-family: initial;
+  border: none;
+  outline: none;
+  padding: 0.5%;
+  background-color: transparent;
+}
+.x-button6{
+  background-color: #37003c;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+  font-family: initial;
+  border: none;
+  border-radius: 5px;
+  padding: 1%;
+}
+.x-button7{
+  width: 20%;
+  background-color: #37003c;
+  color: white;
+  font-size: 25px;
+  font-family: initial;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 1%;
+}
+
+.x-input1{
+  border: none;
+  outline: none;
+  width: 80%;
+  font-size: 17px;
+  font-family: initial;
+  font-weight: 500;
+}
+
+.x-margin1{
+  margin-right: 5px;
+  margin-right: 5px;
+}
+.x-margin2{
+  margin-right: 50px;
+  margin-right: 50px;
+}
+.diceGrid{
+  margin-left: 5%;
+  width: 90%;
+}
+.x-nav-content1{
+  margin:1%;
+  width: 100%;
+  background-color: #37003c;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 20px;
+  font-family: initial;
+  font-weight: 600;
+  color: white;
+}
+.x-top-img{
+  position: relative;
+  width: 100%;
+  background-image: url('/img/head.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+.x-top-fantasy{
+  position: absolute;
+  bottom: 0px;
+}
+.x-top-fantasy-button{
+  padding: 10px 20px 10px;
+  background-color: #10b571;
+  border: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: white;
+  font-size: 17px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.x-top-fantasy-button:focus{
+  color: black;
+  background-color: white;
+}
+.x-top-fantasy-mobile{
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+}
+.x-top-fantasy-more-button .btn-primary{
+  background-color: #10b571;
+  padding: 10px 20px 10px;
+}
+.x-top-fantasy-more-button .btn-primary:focus{
+  background-color: #10b571;
+  padding: 10px 20px 10px;
+  box-shadow: none!important;
+}
+.x-top-fantasy-more-button div a{
+  color: black!important;
+}
+.x-top-title{
+  position: absolute;
+  color: white;
+  font-family: initial;
+  font-weight: 700;
+  top: 30%;
+  left: 10%;
+}
+
+.x-home-card{
+  padding: 2%!important;
+}
+.x-home-card-container{
+  background-color: grey;
+  padding: 2%;
+  border-radius: 5px;
+} 
+.x-home-company-container{
+  text-align: center;
+}
+.x-home-company-logo{
+  width: 110px;
+  margin: 0 30px;
+}
+
+.x-profile-cover-img{
+  position: relative;
+  width: 100%;
+  background-image: url('/img/fantasy/profile/user_cover.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+  margin-bottom: 50px;
+}
+.x-user-cover-text{
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
+.x-profile-favourite-card{
+  background-color: darksalmon;
+  text-align: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 5px;
+  padding-top: 40px;
+  cursor: pointer;
+}
+.x-profile-favourite-card:active{
+  border: green solid 3px;
+}
+.MuiPickersToolbar-toolbarLandscape{
+  max-width: 300px!important;
+}
+.x-profile-register-confirm-res{
+
+}
+.x-transfer-top-time{
+  text-align: center;
+  padding: 1%;
+  background-color: #37003c;
+}
+.x-transfer-player-ground{
+  background-color: #37003c;
+  padding-top: 20px;
+}
+.x-transfer-player-ground-top-button{
+  background-color: #963cff;
+  padding: 5px 5px 5px;
+  margin-left: 15%;
+  width: 70%;
+  margin-bottom: 10px;
+}
+.x-player-remove-button{
+  color: white;
+  padding: 0px!important;
+  top: -25px;
+}
+.x-player-body{
+  cursor: pointer;
+}
+.x-ground-img{
+    width: 100%;
+    background-image: url('/img/transfer/ground.svg');
+    background-Size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.x-transfer-fixture-day{
+  background-color: burlywood;
+  padding: 1%;
+}
+.x-transfer-fixture-point{
+  color: white;
+  padding: 1%;
+  background-color: #37003c;
+}
+.x-playerlist-searchbar{
+  border: 1px solid black;
+  padding: 2%;
+  border-radius: 5px;
+}
+.x-player-keeper-top{
+  background-color: #ebff00;
+  padding: 1%;
+}
+.x-player-defender-top{
+  background-color: #00ff87;
+  padding: 1%;
+}
+.x-player-midfielder-top{
+  background-color: #05f0ff;
+  padding: 1%;
+}
+.x-player-forwarder-top{
+  background-color: #e90052;
+  padding: 1%;
+}
+.x-player-list-item{
+  border: 1px solid grey;
+  cursor: pointer;
+}
+.x-transfer-player-info-name{
+  background-color: #00763b;
+  font-family: initial;
+  color: white;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.x-transfer-player-info-point{
+  background-color: #00ff87;
+  font-family: initial;
+  color: black;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.x-pickTeam-top-alert{
+background-color: #81bcff;
+padding: 0.5%;
+}
+.x-pick-user-card{
+  background-color: #37003c;
+  padding: 2%;
+}
+.x-pick-user-card-content{
+  background-color: white;
+  padding: 1%;
+}
+.x-logout-home-top-info{
+  padding-top: 10px;
+  padding-right:10px;
+  padding-left: 20px;
+  background-image: url("/img/fantasy/back1.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+}
+.x-logout-home-top-info1{
+  background-color: #37003c;
+  border: 1px solid white;
+  text-align: center;
+}
+.x-home-player-carousel{
+  border: 1px solid red;
+}
+.x-home-player-carousel-title{
+  padding: 1%;
+  background-color: red;
+}

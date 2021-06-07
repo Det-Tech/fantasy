@@ -1,0 +1,10 @@
+.root {
+  max-width: 250px;
+  padding: 5px;
+}
+
+.text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
