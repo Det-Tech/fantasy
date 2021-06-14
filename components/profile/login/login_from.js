@@ -10,7 +10,7 @@ function Login(){
 
     const handleEnter = (e) =>{
         if (e&&e.key === 'Enter') {
-            handleLogin();
+            handleLogin()
         }
     }
 

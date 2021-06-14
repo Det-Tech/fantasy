@@ -5,9 +5,14 @@ import ProfileTop from '../../../components/fantasy/register/head';
 import {useDispatch, useSelector, connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {registerUser} from "../../../actions/authActions";
+import { useUser } from "../../../lib/hooks";
+import axios from 'axios';
+
+import { GET_ERRORS } from "../../../actions/types";
 
 function Favourite(props){
     const router = useRouter();
+    const [user, { mutate }] = useUser();
     const dispatch = useDispatch();
     const userData = useSelector(state=>state.auth);
     const [club, setClub] = useState("Arsenal");
@@ -24,10 +29,25 @@ function Favourite(props){
     }
 
     const goNext = () =>{
-        const oldData = userData.reg_info;
-        const element = {club: club};
-        const newData = {...oldData, ...element};
-        props.registerUser(newData, router, 1);
+            axios
+            .post("/api/user/register", userData)
+            .then(async res => {
+                console.log(res.data)
+            if(res.status=="201"){
+                const userObj = await res.data;
+                console.log("good")
+                console.log(res.data)
+                mutate(userObj);
+                router.push('/');
+            }
+            })
+            .catch((err)=>{
+                console.log(err);
+                dispatch({
+                type: GET_ERRORS,
+                payload: err.response
+                })
+            })
     }
 
     return(
@@ -243,9 +263,9 @@ function Favourite(props){
                     </Grid>
                 </Grid>
             </div>
-            <div className = "mt-5 x-Grid4">
-                <button className = "x-button3" style = {{backgroundColor: "#e8e8e8", color: "black"}} onClick = {goBack}>Back</button>
-                <button className = "x-button3" style = {{backgroundColor: "#1976d2", float: "right"}} onClick = {goNext}>Next</button>
+            <div className = "mt-5 x-Grid4 text-center">
+                {/* <button className = "x-button3" style = {{backgroundColor: "#e8e8e8", color: "black"}} onClick = {goBack}>Back</button> */}
+                <button className = "x-button3" style = {{backgroundColor: "#1976d2"}} onClick = {goNext}>Register</button>
             </div>
         </div>
     )

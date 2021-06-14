@@ -10,20 +10,35 @@ import "react-multi-carousel/lib/styles.css";
 import Navigation from '../components/layout/nav';
 import { Provider } from 'react-redux';
 import store from '../store';
-import Axios from 'axios';
+import axios from 'axios';
 
 
 function MyApp({ Component }) {
+  const router = useRouter();
   const [user] = useUser();
   
   useEffect(() => {
-    console.log(user)
+    console.log(window.ethereum.selectedAddress)
+    if(window.ethereum.selectedAddress!==null){
+      axios.post('/api/user/checkmail',{email: window.ethereum.selectedAddress})
+      .then((res)=>{
+      if(res.status==200){
+        router.push('/profile/register/personal')
+      }
+      })
+      .catch((err)=>{
+        console.log(err)
+          if(err.response.status==403){
+          }
+      })
+    }
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, [])
+
   return (
     <Fragment>
       <Head>

@@ -9,6 +9,7 @@ import TopInfoCard from '../components/fantasy/status/topInfoCard';
 import KingOfGw from '../components/fantasy/status/kingOfGw';
 import TopIn from '../components/fantasy/status/topIn';
 import TopOut from '../components/fantasy/status/topOut';
+import {useRouter} from 'next/router';
 import PlayerCarousel from '../components/fantasy/status/playerCarousel';
 import MostTeam from '../components/fantasy/status/team';
 import BestLeague from '../components/fantasy/status/league';
@@ -22,7 +23,7 @@ export default function Home(props) {
       <div className = "mt-5">
         {!auth?(
           <div>
-            <LoginForm />
+            {/* <LoginForm /> */}
             <Grid container spacing = {3} className = "mt-5 x-Grid2">
               <Grid item xs= {12} sm = {12} md = {7} className = "x-home-card">
                 <Card img = "/img/fantasy/home_card1.png" title = "Pick Your Squad" content = "Use your budget of £100m to pick a squad of 15 players from the Premier League." />

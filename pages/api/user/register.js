@@ -9,14 +9,12 @@ handler.use(middleware); // see how we're reusing our middleware
 
 // POST /api/users
 handler.post(async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.reg_info.password, 10);
     const user = await req.db
     .collection('users')
     .insertOne({
         firstName:req.body.reg_info.firstName,
         lastName: req.body.reg_info.lastName,
-        email: req.body.reg_info.email,
-        password: hashedPassword,
+        publicKey: req.body.reg_info.publicKey,
         gender: req.body.reg_info.gender,
         birth: req.body.reg_info.birth,
         country: req.body.reg_info.country,

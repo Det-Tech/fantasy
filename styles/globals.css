@@ -389,6 +389,10 @@ a:hover{
   background-color: #e90052;
   padding: 1%;
 }
+.x-for-list-top{
+  background-color: #bdecb6;
+  padding: 1%;
+}
 .x-player-list-item{
   border: 1px solid grey;
   cursor: pointer;

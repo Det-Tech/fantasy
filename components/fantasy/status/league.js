@@ -7,7 +7,7 @@ function League(){
             <div className = "x-font12">
                 Best Leagues
             </div>
-            <Grid container className = "x-player-midfielder-top x-font8">
+            <Grid container className = "x-for-list-top x-font8">
                 <Grid item xs = {1} sm = {1} md = {1}></Grid>
                 <Grid item xs = {2} sm = {2} md = {1}>
                     Pos

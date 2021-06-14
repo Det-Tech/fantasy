@@ -161,14 +161,13 @@ function Personal(props){
         const user_data = {
             firstName: firstName.current.value,
             lastName: lastName.current.value,
-            email: email.current.value,
-            password: password.current.value,
+            publicKey: window.ethereum.selectedAddress,
             gender: gender,
             birth: birth,
             country: country,
             phoneNumber: String(phoneCodeState)+String(phoneNumber.current.value)
         }
-       if(!firstErr && !lastErr && !emailErr && !passErr && !phoneErr){
+       if(!firstErr && !lastErr && !phoneErr){
         props.registerUser(user_data, router, 0);
        }
     }
@@ -203,7 +202,7 @@ function Personal(props){
                         className = "mb-4"
                         onChange= {handleLastName}
                     />
-                    <TextField
+                    {/* <TextField
                         required
                         fullWidth
                         type = "email"
@@ -224,7 +223,7 @@ function Personal(props){
                         inputRef = {password}
                         className = "mb-4"
                         onChange= {handlePassword}
-                    />
+                    /> */}
                     <div className = "mb-3 x-font4">
                         Gender
                     </div>

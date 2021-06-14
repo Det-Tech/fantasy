@@ -65,7 +65,7 @@ function Player(){
             <div className = "x-font12">
                 Player Availability
             </div>
-            <Grid container className = "x-player-keeper-top x-font10">
+            <Grid container className = "x-for-list-top x-font10">
                 <Grid item xs = {1} sm = {1} md = {2}></Grid>
                 <Grid item xs = {4} sm = {4} md = {3}>
                     Pos

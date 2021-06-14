@@ -2,13 +2,14 @@ import React, {useState,useEffect } from 'react';
 import {DropdownButton, Dropdown} from 'react-bootstrap';
 import { useUser } from "../../lib/hooks";
 import {useRouter} from 'next/router';
+import { toast, ToastContainer } from 'react-nextjs-toast';
+import axios from 'axios';
 
 export default function Home() {
   const router = useRouter();
   const [user, { mutate }] = useUser();
   const [imgHeight, setImgHeight] = useState();
   const [mobile, setMobile] = useState(false);
-  console.log(user)
   useEffect(() => {
     const setResponsiveness = () => {
       setImgHeight(window.innerWidth*405/1196);
@@ -23,6 +24,39 @@ export default function Home() {
     window.addEventListener("resize", () => setResponsiveness());
   }, []);
 
+  const connectWallet = () =>{
+    if (window.ethereum) {
+      try {
+        window.ethereum.enable().then(async()=> {
+          const body = {
+            email: window.ethereum.selectedAddress
+        };
+        axios
+            .post("/api/user/login", body)
+            .then(async res => {
+                console.log(res.data)
+            if(res.status=="201"){
+                const userObj = await res.data;
+                console.log("good")
+                mutate(userObj);
+                router.push('/');
+            }
+            })
+            .catch((err)=>{
+                console.log(err);
+                dispatch({
+                type: GET_ERRORS,
+                payload: err.response
+                })
+            })
+          // User has allowed account access to DApp...
+        });
+      } catch (e) {
+        // User has denied account access to DApp...
+      }
+    }
+  }
+
   const handleLogout = async () => {
     await fetch('/api/user/auth', {
         method: 'DELETE',
@@ -32,6 +66,7 @@ export default function Home() {
 };
   return (
       <div className = "x-top-img" style = {{height: `${imgHeight}px`}}>
+        <ToastContainer align={"center"} position={"bottom"}/>
         <div className = "x-top-title" style = {mobile?{fontSize: "30px"}:{fontSize: "60px"}}>
             Fantasy
         </div>
@@ -39,15 +74,17 @@ export default function Home() {
             <div>
               <div className = "x-top-fantasy-mobile" style = {!mobile?{display:"none"}:{display: "flex"}}>
                 <button className = "x-top-fantasy-button">Home</button>
-                <button className = "x-top-fantasy-button">Statistics</button>
+                <button className = "x-top-fantasy-button" onClick = {connectWallet}>Connect</button>
                 <DropdownButton className = "x-top-fantasy-more-button" title="More">
                   <Dropdown.Item href="#/action-3">Draft</Dropdown.Item>
+                  <Dropdown.Item href="#/acti">Statistics</Dropdown.Item>
                 </DropdownButton>
               </div>
               <div className = "x-top-fantasy" style = {mobile?{display:"none"}:{display: "block"}}>
                 <button className = "x-top-fantasy-button">Home</button>
                 <button className = "x-top-fantasy-button">Statistics</button>
                 <button className = "x-top-fantasy-button">Draft</button>
+                <button className = "x-top-fantasy-button" onClick = {connectWallet}>{typeof window !== "undefined"?window.ethereum.selectedAddress!==null?`${window.ethereum.selectedAddress.slice(0,6)}...`:"Connect":null}</button>
               </div>
             </div>
           ):Object.keys(user.transfered).length === 0?
@@ -56,6 +93,7 @@ export default function Home() {
               <div className = "x-top-fantasy-mobile">
               <button className = "x-top-fantasy-button" onClick = {()=>router.push("/")}>Home</button>
                 <button className = "x-top-fantasy-button" onClick = {()=>router.push("/fantasy/transfers")}>Transfers</button>
+                <button className = "x-top-fantasy-button" onClick = {handleLogout}>Log out</button>
               </div>
             </div>
           ):
