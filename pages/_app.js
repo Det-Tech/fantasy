@@ -19,19 +19,24 @@ function MyApp({ Component }) {
   
   useEffect(() => {
     if (typeof window !== "undefined"){
-      if(window.ethereum.selectedAddress){
-        axios.post('/api/user/checkmail',{email: window.ethereum.selectedAddress})
-        .then((res)=>{
-        if(res.status==200){
-          router.push('/profile/register/personal')
+      if(window.ethereum){
+        if(window.ethereum.selectedAddress!==null){
+          axios.post('/api/user/checkmail',{email: window.ethereum.selectedAddress})
+          .then((res)=>{
+          if(res.status==200){
+            router.push('/profile/register/personal')
+          }
+          })
+          .catch((err)=>{
+            console.log(err)
+              if(err.response.status==403){
+              }
+          })
         }
-        })
-        .catch((err)=>{
-          console.log(err)
-            if(err.response.status==403){
-            }
-        })
       }
+      else{{
+        alert("please install metamask!")
+      }}
     }
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
