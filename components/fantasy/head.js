@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   const connectWallet = () =>{
-    if (window.ethereum) {
+    if (typeof window !== "undefined") {
       try {
         window.ethereum.enable().then(async()=> {
           const body = {
@@ -37,7 +37,6 @@ export default function Home() {
                 console.log(res.data)
             if(res.status=="201"){
                 const userObj = await res.data;
-                console.log("good")
                 mutate(userObj);
                 router.push('/');
             }
@@ -84,7 +83,7 @@ export default function Home() {
                 <button className = "x-top-fantasy-button">Home</button>
                 <button className = "x-top-fantasy-button">Statistics</button>
                 {/* <button className = "x-top-fantasy-button">Draft</button> */}
-                <button className = "x-top-fantasy-button" onClick = {connectWallet}>{typeof window !== "undefined"?window.ethereum.selectedAddress!==null?`${window.ethereum.selectedAddress.slice(0,6)}...`:"Connect":null}</button>
+                <button className = "x-top-fantasy-button" onClick = {connectWallet}>{typeof window !== "undefined"?`${window.ethereum.selectedAddress.slice(0,6)}...`:"Connect"}</button>
               </div>
             </div>
           ):Object.keys(user.transfered).length === 0?
