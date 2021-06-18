@@ -18,19 +18,20 @@ function MyApp({ Component }) {
   const [user] = useUser();
   
   useEffect(() => {
-    console.log(window.ethereum.selectedAddress)
-    if(window.ethereum.selectedAddress!==null){
-      axios.post('/api/user/checkmail',{email: window.ethereum.selectedAddress})
-      .then((res)=>{
-      if(res.status==200){
-        router.push('/profile/register/personal')
+    if (typeof window !== "undefined"){
+      if(window.ethereum.selectedAddress){
+        axios.post('/api/user/checkmail',{email: window.ethereum.selectedAddress})
+        .then((res)=>{
+        if(res.status==200){
+          router.push('/profile/register/personal')
+        }
+        })
+        .catch((err)=>{
+          console.log(err)
+            if(err.response.status==403){
+            }
+        })
       }
-      })
-      .catch((err)=>{
-        console.log(err)
-          if(err.response.status==403){
-          }
-      })
     }
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');

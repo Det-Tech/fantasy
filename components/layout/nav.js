@@ -3,7 +3,6 @@ import {useRouter} from 'next/router';
 
 function Navigation(props){
     const router = useRouter();
-    const {user} = props;
 
     return(
         <div className = "x-Grid1">
