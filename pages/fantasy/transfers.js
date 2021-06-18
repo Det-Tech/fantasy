@@ -8,9 +8,11 @@ import TransferGround from '../../components/fantasy/ground/transferGround';
 import ControlDialog from '../../components/fantasy/transfer/controlDialog';
 import ListControlDialog from '../../components/fantasy/transfer/listDialog';
 import { useUser } from "../../lib/hooks";
+import { toast, ToastContainer } from 'react-nextjs-toast'
 
 import {Grid} from "@material-ui/core";
 import Axios from 'axios';
+import { useDispatch } from 'react-redux';
   
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -31,6 +33,7 @@ import Axios from 'axios';
 function Transfers(props){
     const {auth} = props;
     const [user, { mutate }] = useUser();
+    const dispatch = useDispatch();
     const classes = useStyles();
     const router = useRouter();
     const [apiFlag, setApiFlag] = useState(true);
@@ -125,7 +128,6 @@ function Transfers(props){
         let addP = [...totalInfo];
         if(id<2){
           totalList.goalKeepers.map((el)=>{
-            console.log("flag", fg);
             if(fg==0){
             var ix=0;
             totalInfo.map((p)=>{
@@ -466,25 +468,52 @@ function Transfers(props){
             url: "/api/fantasy/team/transfer-team",
             data:{
                   id: auth._id,
-                  players: totalInfo
+                  players: totalInfo,
+                  main:[
+                    totalInfo[0],
+                    totalInfo[2],
+                    totalInfo[3],
+                    totalInfo[4],
+                    totalInfo[5],
+                    totalInfo[7],
+                    totalInfo[8],
+                    totalInfo[9],
+                    totalInfo[10],
+                    totalInfo[12],
+                    totalInfo[13]
+                  ],
+                  candidate:[
+                    totalInfo[1],
+                    totalInfo[6],
+                    totalInfo[11],
+                    totalInfo[14]
+                  ]
             }
           })
           .then((res)=>{
             console.log(res.data);
             mutate(res.data);
+            dispatch({type: "SET_CURRENT_MEMBERS", payload: totalInfo})
             router.push(`/fantasy/pick-team`);
           })
         }
         else{
-         console.log('wowow')
+          toast.notify('now cost is not enough!', {
+            duration: 5,
+            type: "error"
+          })
         }
       }
       else{
-        console.log("heheh")
+        toast.notify('please select 15 members for your team!', {
+          duration: 5,
+          type: "error"
+        })
       }
     }
     return(
         <div>
+          <ToastContainer align={"center"} position={"bottom"}/>
             <TopHead />
             <div className={classes.container}>
                 <ControlDialog open = {dialogOpen} onClose = {handleDialogClose} selectedValue = {selectedValue} handleListItemClick = {handleListItemClick} id = {id}/>

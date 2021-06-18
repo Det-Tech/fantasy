@@ -1,6 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useUser } from "../../../lib/hooks";
 
-function UserCard(){
+function UserCard(props){
+    const [user] = useUser();
+    const [countryCode, setCountryCode] = useState("us");
+
+    useEffect(()=>{
+        console.log(user)
+        if(user!==undefined){
+            fetch(`https://restcountries.eu/rest/v2/name/${user.country}`).then(resp=>{
+            return resp.json();
+                }).then(json=>{
+                    var alphacode = json[0].alpha2Code;
+                    setCountryCode(alphacode.toLowerCase());
+            })
+        }
+    },[user])
+
     return(
         <div className = "x-pick-user-card">
             <div className = "x-font11">
@@ -12,7 +28,7 @@ function UserCard(){
                         manchester united
                     </span>
                     <span className = "float-right">
-                        <img src="https://www.countryflags.io/ca/flat/64.png"/>
+                        <img src={`https://www.geonames.org/flags/x/${countryCode}.gif`} width = "80px"/>
                     </span>
                 </div>
                 <hr />

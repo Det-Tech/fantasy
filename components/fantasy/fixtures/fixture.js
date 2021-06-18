@@ -21,6 +21,7 @@ function Fixture(){
             setApiFlag(false);
             Axios.post("/api/fantasy/bootstrap-api")
             .then((res)=>{
+                dispatch({type: "SET_FULL_BOOTSTRAP_API", payload: res.data})
                 dispatch({type: "SET_LAST_EVENT_ID", payload:res.data.events.length-1});
                 setEventId(res.data.events.length-1);
                 Axios({
@@ -98,19 +99,19 @@ function Fixture(){
                     eventId==fixtureData.lastEventId?(
                         <div className = "x-font4 mt-2">
                             <Grid container>
-                                <Grid item xs = {3} sm = {4} md = {4}>
+                                <Grid item xs = {2} sm = {4} md = {4}>
                                     {teamName[el.team_a]}
                                 </Grid>
                                 <Grid item xs = {2} sm = {1} md = {1}>
                                     <img src = {`/img/clubs/team${el.team_a}.png`} alt = "team1"/>
                                 </Grid>
-                                <Grid item xs = {2} sm = {2} md = {2} className = "x-transfer-fixture-point">
+                                <Grid item xs = {4} sm = {2} md = {2} className = "x-transfer-fixture-point">
                                     {new Date(el.kickoff_time).toString().split(' ')[4]}
                                 </Grid>
                                 <Grid item xs = {2} sm = {1} md = {1}>
                                     <img src = {`/img/clubs/team${el.team_h}.png`} alt = "team1"/>
                                 </Grid>
-                                <Grid item xs = {3} sm = {4} md = {4}>
+                                <Grid item xs = {2} sm = {4} md = {4}>
                                     {teamName[el.team_h]}
                                 </Grid>
                             </Grid>

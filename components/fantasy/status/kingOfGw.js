@@ -5,6 +5,9 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 function KingOfGw(){
     return(
         <div>
+            <div className = "x-font12">
+                KING OF GW38
+            </div>
             <Grid container className = "x-for-list-top x-font10">
                 <Grid item xs = {1} sm = {1} md = {2}></Grid>
                 <Grid item xs = {4} sm = {4} md = {3}>

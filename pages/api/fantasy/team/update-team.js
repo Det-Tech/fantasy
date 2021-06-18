@@ -12,7 +12,6 @@ handler.post(async (req, res) => {
     const user = await req.db
     .collection('users')
     .updateOne({_id:ObjectId(req.body.id)},{$set:{
-        transfered: req.body.players,
         main: req.body.main,
         candidate: req.body.candidate}
         },{ upsert: true })

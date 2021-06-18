@@ -135,7 +135,7 @@ function Personal(props){
         const res = await Axios("/api/user/getapi", {
             method: "POST"
         });
-
+        console.log(res.data);
         var tempRegion = [];
         var tempPhoneCode = [];
         setPhoneKey(res.data.phone_country_codes);

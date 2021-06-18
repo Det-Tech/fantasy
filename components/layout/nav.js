@@ -32,8 +32,8 @@ function Navigation(props){
             <div className = "d-flex mt-2">
                 <a href = "/"><img src = '/img/logo.png' alt = "logo" width = "60px"/></a>
                 <span className = "x-nav-content1">
-                    <a href = '/fantasy' className = "x-margin2" style = {{color: "white"}}>fantasy</a>
-                    <a href = '/draft' className = "x-margin2" style = {{color: "white"}}>draft</a>
+                    {/* <a href = '/fantasy' className = "x-margin2" style = {{color: "white"}}>fantasy</a>
+                    <a href = '/draft' className = "x-margin2" style = {{color: "white"}}>draft</a> */}
                 </span>
             </div>
         </div>

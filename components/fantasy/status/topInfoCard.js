@@ -1,14 +1,16 @@
 import React from 'react';
 import {Grid, Hidden} from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import {useRouter} from 'next/router';
 
 function TopInfoCard(){
+    const router = useRouter();
     return(
         <div className = "x-logout-home-top-info">
             <Grid container>
                 <Grid item xs ={12} sm = {6} md = {6}>
                     <div className = "x-font11">Gameweek 38</div>
-                    <div><button className = "x-button3" style = {{backgroundColor: "#37003c", fontFamily: "initial"}}>My Team <ArrowForwardIcon/></button></div>
+                    <div><button className = "x-button3" style = {{backgroundColor: "#37003c", fontFamily: "initial"}} onClick = {()=>router.push("/fantasy/pick-team")}>My Team <ArrowForwardIcon/></button></div>
                     <div className = "x-font11">prizes</div>
                 </Grid>
                 <Grid item xs ={12} sm = {6} md = {6} className = "text-center">

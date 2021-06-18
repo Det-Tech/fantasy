@@ -5,7 +5,10 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 function TopIn(){
     return(
         <div>
-            <Grid container className = "x-for-list-top x-font8">
+            <div className = "x-font12">
+                Top Transfers in this Gameweek
+            </div>
+            <Grid container className = "x-for-list-top x-font10">
                 <Grid item xs = {1} sm = {1} md = {2}></Grid>
                 <Grid item xs = {4} sm = {4} md = {3}>
                     Pos
