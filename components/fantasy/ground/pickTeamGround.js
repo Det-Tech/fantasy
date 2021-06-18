@@ -205,7 +205,7 @@ function TransferGround(props){
                     </Grid>
                     <Grid item xs = {3} sm = {3} md = {3}></Grid>
                 </Grid>
-                <Grid container spacing = {3} className = "text-center">
+                <Grid container className = "text-center mt-4">
                   <Grid item xs = {3} sm = {3} md = {3}>
                       {/* <IconButton className = "x-player-remove-button" style = {mobile?{display: "none"}:null} onClick = {(e)=>handlePlayerReverse(e,11,!totalInfo[11][0],totalInfo[11][6])}>
                           <CancelIcon />

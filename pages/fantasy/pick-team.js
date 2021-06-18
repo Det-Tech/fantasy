@@ -22,7 +22,6 @@ const playerArrange = (a,b) =>{
 
 
 function PickTeam(props){
-    const {auth} = props;
     const [user, { mutate }] = useUser();
     const dispatch = useDispatch();
     const bootstrapApiStore = useSelector(state=>state.playerList);
@@ -43,8 +42,8 @@ function PickTeam(props){
 
 
     const [main, setMain] = useState(
-        auth?
-        auth.main:
+        user?
+        user.main:
         [
           [false,"player", 0,0,0,0,0,0],
           [false,"player", 0,0,0,0,0,0],
@@ -61,8 +60,8 @@ function PickTeam(props){
         );
 
     const [candidate, setCandidate] = useState(
-        auth?
-        auth.candidate:
+        user?
+        user.candidate:
         [
             [false,"player", 0,0,0,0,0,0],
             [false,"player", 0,0,0,0,0,0],
@@ -107,12 +106,12 @@ function PickTeam(props){
         })
   
       useEffect(()=>{
-          console.log(auth);
-          if(auth){
-                setCandidate(auth.candidate);
-                setMain(auth.main);
+          console.log(user);
+          if(user){
+                setCandidate(user.candidate);
+                setMain(user.main);
             }
-      }, [])
+      }, [user])
 
     const removePlayer = (event,v) =>{
         setDialogOpen(true);
@@ -189,7 +188,7 @@ function PickTeam(props){
             method: "POST",
             url: "/api/fantasy/team/update-team",
             data:{
-                  id: auth._id,
+                  id: user._id,
                   main:main,
                   candidate:candidate
             }
@@ -227,13 +226,13 @@ function PickTeam(props){
                         <div className = "x-pickTeam-top-alert x-font4 text-center">
                             To change your captain use the menu which appears when clicking on a player
                         </div>
-                        <PickGround auth = {auth} main = {main} candidate = {candidate} removePlayer = {removePlayer} addPlayer = {addPlayer} saveTeam = {saveTeam}/>
+                        <PickGround auth = {user} main = {main} candidate = {candidate} removePlayer = {removePlayer} addPlayer = {addPlayer} saveTeam = {saveTeam}/>
                         <div className = "mt-5">
                             <Fixture />
                         </div>
                     </Grid>
                     <Grid item xs = {12} sm = {12} md = {4}>
-                        <UserCard auth = {auth}/>
+                        <UserCard auth = {user}/>
                     </Grid>
                 </Grid>
             </div>
