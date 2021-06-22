@@ -120,6 +120,18 @@ a:hover{
   font-weight: 600;
   font-family: initial;
 }
+.y-font1{
+  font-size: 23px;
+  color:#19E8E2!important;
+  font-weight: 500;
+  font-family: Rubik-Light;
+}
+.y-font1 a{
+  font-size: 23px;
+  color:#19E8E2!important;
+  font-weight: 500;
+  font-family: Rubik-Light;
+}
 .x-button1{
   background-color: #37003c;
   width: 100%;
@@ -209,20 +221,37 @@ a:hover{
   margin-right: 50px;
   margin-right: 50px;
 }
+.x-margin3{
+  margin-right: 25px;
+  margin-right: 25px;
+}
 .diceGrid{
   margin-left: 5%;
   width: 90%;
 }
 .x-nav-content1{
-  margin:1%;
   width: 100%;
-  background-color: #37003c;
   font-size: 25px;
   text-align: center;
-  border-radius: 20px;
   font-family: initial;
   font-weight: 600;
   color: white;
+}
+.x-nav-content2{
+  position: relative;
+  background-color: #17234D;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-left: 20%;
+  width: 100%;
+  height: 60px;
+  vertical-align: middle;
+}
+.y-logo{
+  position: absolute;
+  width: 250px;
+  z-index: 2;
+  left: 50px;
 }
 .x-top-img{
   position: relative;
@@ -239,7 +268,7 @@ a:hover{
 }
 .x-top-fantasy-button{
   padding: 10px 20px 10px;
-  background-color: #10b571;
+  background-color: #19E8E2;
   border: none;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -297,7 +326,7 @@ a:hover{
 .x-profile-cover-img{
   position: relative;
   width: 100%;
-  background-image: url('/img/fantasy/profile/user_cover.png');
+  background-image: url('/img/head.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -427,7 +456,7 @@ padding: 0.5%;
   padding-top: 10px;
   padding-right:10px;
   padding-left: 20px;
-  background-image: url("/img/fantasy/back1.jpg");
+  background-image: url("/img/headBack.png");
   background-repeat: no-repeat;
   width: 100%;
   background-position: center;
@@ -439,9 +468,34 @@ padding: 0.5%;
   text-align: center;
 }
 .x-home-player-carousel{
-  border: 1px solid red;
+  border: 1px solid #19E8E2;
 }
 .x-home-player-carousel-title{
   padding: 1%;
-  background-color: red;
+  background-color: #19E8E2;
+}
+.y-footer{
+  background-color: #17234D;
+  margin-top: 50px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  height: 100%;
+  display: block;
+}
+.y-footer-line1{
+  display: block;
+  padding-bottom: 20px;
+}
+.y-footer-text-el{
+  border-right: 2px solid #19E8E2;
+  font-size: 23px;
+  color:#19E8E2!important;
+  font-weight: 500;
+  font-family: Rubik-Light;
+  padding-right: 10px;
+  padding-left: 30px;
+  /* display: inline-block; */
+  float: right;
 }

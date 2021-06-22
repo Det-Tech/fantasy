@@ -14,7 +14,7 @@ function TopInfoCard(){
                     <div className = "x-font11">prizes</div>
                 </Grid>
                 <Grid item xs ={12} sm = {6} md = {6} className = "text-center">
-                    <img src = "/img/fantasy/homeInfo1.png" width = "100%"/>
+                    <img src = "/img/headMan.png" width = "100%"/>
                 </Grid>
             </Grid>
             <Grid container>

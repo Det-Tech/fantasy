@@ -8,7 +8,9 @@ import TransferGround from '../../components/fantasy/ground/transferGround';
 import ControlDialog from '../../components/fantasy/transfer/controlDialog';
 import ListControlDialog from '../../components/fantasy/transfer/listDialog';
 import { useUser } from "../../lib/hooks";
-import { toast, ToastContainer } from 'react-nextjs-toast'
+import { toast, ToastContainer } from 'react-nextjs-toast';
+import {ethers} from 'ethers';
+import profileContract from '../../lib/abi/profile';
 
 import {Grid} from "@material-ui/core";
 import Axios from 'axios';
@@ -459,58 +461,70 @@ function Transfers(props){
       // }
     }
   
-    const saveTeam = () =>{
-      console.log(keeperCount+defenderCount+fielderCount+forwardsCount)
+    const saveTeam = async () =>{
       if(keeperCount+defenderCount+fielderCount+forwardsCount == 15){
         if(1000>=(totalInfo[0][2]+totalInfo[1][2]+totalInfo[2][2]+totalInfo[3][2]+totalInfo[4][2]+totalInfo[5][2]+totalInfo[6][2]+totalInfo[7][2]+totalInfo[8][2]+totalInfo[9][2]+totalInfo[10][2]+totalInfo[11][2]+totalInfo[12][2]+totalInfo[13][2]+totalInfo[14][2])){
-          Axios({
-            method: "POST",
-            url: "/api/fantasy/team/transfer-team",
-            data:{
-                  id: auth._id,
-                  players: totalInfo,
-                  main:[
-                    totalInfo[0],
-                    totalInfo[2],
-                    totalInfo[3],
-                    totalInfo[4],
-                    totalInfo[5],
-                    totalInfo[7],
-                    totalInfo[8],
-                    totalInfo[9],
-                    totalInfo[10],
-                    totalInfo[12],
-                    totalInfo[13]
-                  ],
-                  candidate:[
-                    totalInfo[1],
-                    totalInfo[6],
-                    totalInfo[11],
-                    totalInfo[14]
-                  ]
+          const provider =new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(profileContract.kovan,profileContract.abi,signer);
+            const UserAddress=await signer.getAddress();
+            var userdata = await contract.profiles(UserAddress).catch((err)=>console.log(err));
+            console.log(typeof(userdata));
+
+            const playerInfo = {
+                      players: totalInfo,
+                      main:[
+                        totalInfo[0],
+                        totalInfo[2],
+                        totalInfo[3],
+                        totalInfo[4],
+                        totalInfo[5],
+                        totalInfo[7],
+                        totalInfo[8],
+                        totalInfo[9],
+                        totalInfo[10],
+                        totalInfo[12],
+                        totalInfo[13]
+                      ],
+                      candidate:[
+                        totalInfo[1],
+                        totalInfo[6],
+                        totalInfo[11],
+                        totalInfo[14]
+                      ]
+                }
+
+                    console.log(typeof(playerInfo));
+
+            const userInfo = {
+              ...JSON.parse(userdata),
+              ...playerInfo
             }
-          })
-          .then((res)=>{
-            console.log(res.data);
-            mutate(res.data);
-            dispatch({type: "SET_CURRENT_MEMBERS", payload: totalInfo})
-            router.push(`/fantasy/pick-team`);
-          })
+
+            var tx =await contract.saveProfile(JSON.stringify(userInfo));
+            if(tx!=null){
+                console.log(tx);
+                await provider.waitForTransaction(tx.hash)
+                        .catch((err)=>{
+                            console.log(err)
+                        });
+                  router.push(`/fantasy/pick-team`);
+            }
+          }
+          else{
+                toast.notify('now cost is not enough!', {
+                  duration: 5,
+                  type: "error"
+                })
+              }
         }
         else{
-          toast.notify('now cost is not enough!', {
-            duration: 5,
-            type: "error"
-          })
-        }
+            toast.notify('please select 15 members for your team!', {
+              duration: 5,
+              type: "error"
+            })
+          }
       }
-      else{
-        toast.notify('please select 15 members for your team!', {
-          duration: 5,
-          type: "error"
-        })
-      }
-    }
     return(
         <div>
           <ToastContainer align={"center"} position={"bottom"}/>

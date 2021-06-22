@@ -5,43 +5,6 @@ import {useSelector} from 'react-redux';
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING,REGISTER_INFO, SET_REGISTER_STEP, SET_EMAIL_VALID } from "./types";
 
-// Register User 
-
-export const registerUser = (userData, router,step) => dispatch => {
-  if(step==0){
-    dispatch({
-      type: REGISTER_INFO,
-      payload: userData
-    })
-    router.push("/profile/register/favourite");
-    return;
-  }
-  else{
-    dispatch({
-      type: REGISTER_INFO,
-      payload: userData
-    })
-    axios.post('/api/user/checkmail',userData)
-    .then((res)=>{
-      if(res.status==200){
-        dispatch({
-          type: SET_EMAIL_VALID,
-          payload: true
-        })
-      }
-    })
-    .catch((err)=>{
-      if(err.status==403){
-        dispatch({
-          type: SET_EMAIL_VALID,
-          payload: false
-        })
-      }
-    })
-    router.push("/profile/register/confirm");
-    return;
-  }
-}
 
 // Login - get user token
 export const loginUser = userData => dispatch => {

@@ -9,7 +9,9 @@ import AddDialog from '../../components/fantasy/pickTeam/addDialog';
 import {useSelector, useDispatch} from 'react-redux';
 import Axios from 'axios';
 import { useUser } from "../../lib/hooks";
-import { toast, ToastContainer } from 'react-nextjs-toast'
+import { toast, ToastContainer } from 'react-nextjs-toast';
+import {ethers} from 'ethers';
+import profileContract from '../../lib/abi/profile';
 
 const playerArrange = (a,b) =>{
     if (a.total_points === b.total_points) {
@@ -32,6 +34,7 @@ function PickTeam(props){
     const [id, setId] = useState();
     const [apiFlag, setApiFlag] = useState(true);
     const [totalPlayerApi, setTotalPlayerApi] = useState([]);
+    const [userData, setUserData] = useState();
 
     const [totalList, setTotalList] = useState({
         goalKeepers:[],
@@ -106,12 +109,21 @@ function PickTeam(props){
         })
   
       useEffect(()=>{
-          console.log(user);
-          if(user){
-                setCandidate(user.candidate);
-                setMain(user.main);
+        const handleCheckTeam = async () =>{
+            const provider =new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(profileContract.kovan,profileContract.abi,signer);
+            const UserAddress=await signer.getAddress();
+            var userdata = await contract.profiles(UserAddress).catch((err)=>console.log(err));
+            setUserData(JSON.parse(userdata));
+            console.log(userdata)
+            if(JSON.parse(userdata).candidate){
+                setCandidate(JSON.parse(userdata).candidate);
+                setMain(JSON.parse(userdata).main);
             }
-      }, [user])
+          }
+          handleCheckTeam();
+      }, [])
 
     const removePlayer = (event,v) =>{
         setDialogOpen(true);
@@ -232,7 +244,7 @@ function PickTeam(props){
                         </div>
                     </Grid>
                     <Grid item xs = {12} sm = {12} md = {4}>
-                        <UserCard auth = {user}/>
+                        <UserCard auth = {userData}/>
                     </Grid>
                 </Grid>
             </div>

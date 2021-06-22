@@ -2,20 +2,20 @@ import React, {useState, useEffect} from 'react';
 import { useUser } from "../../../lib/hooks";
 
 function UserCard(props){
-    const [user] = useUser();
+    const {auth} = props;
     const [countryCode, setCountryCode] = useState("us");
 
     useEffect(()=>{
-        console.log(user)
-        if(user!==undefined){
-            fetch(`https://restcountries.eu/rest/v2/name/${user.country}`).then(resp=>{
+        if(auth!==undefined){
+            console.log(auth.country)
+            fetch(`https://restcountries.eu/rest/v2/name/${auth.country}`).then(resp=>{
             return resp.json();
                 }).then(json=>{
                     var alphacode = json[0].alpha2Code;
                     setCountryCode(alphacode.toLowerCase());
             })
         }
-    },[user])
+    },[])
 
     return(
         <div className = "x-pick-user-card">
