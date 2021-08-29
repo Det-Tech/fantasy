@@ -1,12 +1,11 @@
-import React, {useState,useEffect } from 'react';
+import React, {useState,useEffect, useContext } from 'react';
 import {DropdownButton, Dropdown} from 'react-bootstrap';
-import { useUser } from "../../lib/hooks";
 import {useRouter} from 'next/router';
 import { toast, ToastContainer } from 'react-nextjs-toast';
-import {ethers} from 'ethers';
-import profileContract from '../../lib/abi/profile';
+import  {ProfileContext} from '../../context/profile';
 
 export default function Home() {
+  const {playerData} = useContext(ProfileContext);
   const router = useRouter();
   const [isTeam, setIsTeam] = useState(false);
   const [imgHeight, setImgHeight] = useState();
@@ -27,31 +26,21 @@ export default function Home() {
 
   useEffect(()=>{
     const handleCheckTeam = async () =>{
-      const provider =new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(profileContract.kovan,profileContract.abi,signer);
-      const UserAddress=await signer.getAddress();
-      console.log(UserAddress);
-      var userdata = await contract.profiles(UserAddress).catch((err)=>console.log(err));
-      const userObj = JSON.parse(userdata);
-      if(userObj.players){
+      const jsonProfile = JSON.parse(playerData);
+      if(jsonProfile.main){
         setIsTeam(true);
       }
       else{
         setIsTeam(false);
       }
-
     }
-    handleCheckTeam();
-  })
+    if (typeof window !== "undefined"){
+      if (window.ethereum&&window.ethereum.selectedAddress!==null) {
+        handleCheckTeam();
+      }
+    }
+  },[playerData])
 
-  const handleLogout = async () => {
-    await fetch('/api/user/auth', {
-        method: 'DELETE',
-    });
-    // set the user state to null
-    mutate(null);
-};
   return (
       <div className = "x-top-img" style = {{height: `${imgHeight}px`}}>
         <ToastContainer align={"center"} position={"bottom"}/>
@@ -71,9 +60,8 @@ export default function Home() {
             <div>
               <div className = "x-top-fantasy-mobile" style = {!mobile?{display:"none"}:{display: "flex"}}>
                 <button className = "x-top-fantasy-button" onClick = {()=>router.push("/")}>Home</button>
-                <button className = "x-top-fantasy-button" onClick = {handleLogout}>Log out</button>
+                <button className = "x-top-fantasy-button" onClick = {()=>router.push("/fantasy/pick-team")}>Pick Team</button>
                 <DropdownButton className = "x-top-fantasy-more-button" title="More">
-                  <Dropdown.Item href="/fantasy/pick-team">Pick Team</Dropdown.Item>
                   <Dropdown.Item href="/fantasy/transfers">Transfers</Dropdown.Item>
                   <Dropdown.Item href="/fantasy/leagues">Leagues</Dropdown.Item>
                   <Dropdown.Item href="/fantasy/fixtures">Fixtures</Dropdown.Item>
@@ -88,7 +76,6 @@ export default function Home() {
                 <button className = "x-top-fantasy-button" onClick = {()=>router.push("/fantasy/fixtures")}>Fixtures</button>
                 <button className = "x-top-fantasy-button" onClick = {()=>router.push("/fantasy/stats")}>Stats</button>
                 {/* <button className = "x-top-fantasy-button" onClick = {()=>router.push("/draft")}>Draft</button> */}
-                <button className = "x-top-fantasy-button" onClick = {handleLogout}>Log out</button>
               </div>
             </div>
           )

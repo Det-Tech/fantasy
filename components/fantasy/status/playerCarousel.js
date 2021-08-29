@@ -74,56 +74,84 @@ export default function PlayerCarousel(props){
                     forwarders: temp4.sort(playerArrange)
                 }
                 dispatch({type: "SET_PLAYERLIST", payload: totalApi})
-                setCurrentPlayerList(totalApi)
+                setCurrentPlayerList(totalApi);
+                res.data.events.map((top)=>{
+                    currentPlayerList.goalKeepers.map((el)=>{
+                        if(el.id==top.top_element_info.id){
+                            el.pts = top.top_element_info.points;
+                            tempList.push(el);
+                        }
+                    })
+                    currentPlayerList.defenders.map((el)=>{
+                        if(el.id==top.top_element_info.id){
+                            el.pts = top.top_element_info.points;
+                            tempList.push(el);
+                        }
+                    })
+                    currentPlayerList.midFielders.map((el)=>{
+                        if(el.id==top.top_element_info.id){
+                            el.pts = top.top_element_info.points;
+                            tempList.push(el);
+                        }
+                    })
+                    currentPlayerList.forwarders.map((el)=>{
+                        if(el.id==top.top_element_info.id){
+                            el.pts = top.top_element_info.points;
+                            tempList.push(el);
+                        }
+                    })
+                })
+                console.log("tempList",tempList);
+                setTopList(tempList);
             })
         }
-    })
-
-    useEffect(()=>{
-
-        const getTopList = async () =>{
-            var tempList = [];
-                await Axios({
-                    method: "POST",
-                    url: "/api/fantasy/bootstrap-api"
-                }).then((res)=>{
-                    res.data.events.map((top)=>{
-                        currentPlayerList.goalKeepers.map((el)=>{
-                            if(el.id==top.top_element_info.id){
-                                el.pts = top.top_element_info.points;
-                                tempList.push(el);
-                            }
-                        })
-                        currentPlayerList.defenders.map((el)=>{
-                            if(el.id==top.top_element_info.id){
-                                el.pts = top.top_element_info.points;
-                                tempList.push(el);
-                            }
-                        })
-                        currentPlayerList.midFielders.map((el)=>{
-                            if(el.id==top.top_element_info.id){
-                                el.pts = top.top_element_info.points;
-                                tempList.push(el);
-                            }
-                        })
-                        currentPlayerList.forwarders.map((el)=>{
-                            if(el.id==top.top_element_info.id){
-                                el.pts = top.top_element_info.points;
-                                tempList.push(el);
-                            }
-                        })
-                    })
-                    
-                    // tempList.push()
-                    // dispatchEvent({type: "SET_TOP_WEEK", payload: res.data})
-                }) 
-            
-            console.log("tempList",tempList);
-            setTopList(tempList);
-        }
-        getTopList();
-        
     }, [currentPlayerList])
+
+    // useEffect(()=>{
+
+    //     const getTopList = async () =>{
+    //         var tempList = [];
+    //             await Axios({
+    //                 method: "POST",
+    //                 url: "/api/fantasy/bootstrap-api"
+    //             }).then((res)=>{
+    //                 res.data.events.map((top)=>{
+    //                     currentPlayerList.goalKeepers.map((el)=>{
+    //                         if(el.id==top.top_element_info.id){
+    //                             el.pts = top.top_element_info.points;
+    //                             tempList.push(el);
+    //                         }
+    //                     })
+    //                     currentPlayerList.defenders.map((el)=>{
+    //                         if(el.id==top.top_element_info.id){
+    //                             el.pts = top.top_element_info.points;
+    //                             tempList.push(el);
+    //                         }
+    //                     })
+    //                     currentPlayerList.midFielders.map((el)=>{
+    //                         if(el.id==top.top_element_info.id){
+    //                             el.pts = top.top_element_info.points;
+    //                             tempList.push(el);
+    //                         }
+    //                     })
+    //                     currentPlayerList.forwarders.map((el)=>{
+    //                         if(el.id==top.top_element_info.id){
+    //                             el.pts = top.top_element_info.points;
+    //                             tempList.push(el);
+    //                         }
+    //                     })
+    //                 })
+                    
+    //                 // tempList.push()
+    //                 // dispatchEvent({type: "SET_TOP_WEEK", payload: res.data})
+    //             }) 
+            
+    //         console.log("tempList",tempList);
+    //         setTopList(tempList);
+    //     }
+    //     getTopList();
+        
+    // }, [currentPlayerList])
     return(
         <div className = "x-home-player-carousel">
             <div className = "x-home-player-carousel-title x-font8">

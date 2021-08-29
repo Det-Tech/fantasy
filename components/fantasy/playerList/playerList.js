@@ -186,7 +186,7 @@ function PlayerList(props){
             <div className = "x-font4">
                 View
             </div>
-            <div>
+            {/* <div>
                 <Autocomplete
                     id="sort1"
                     options={options1.sort()}
@@ -226,7 +226,7 @@ function PlayerList(props){
                     getOptionLabel={(option) => String(option)}
                     renderInput={(params) => <TextField {...params} label={sort3} variant="outlined" />}
                 />
-            </div>
+            </div> */}
             <div className = "x-font4 text-center mt-3">
                 {`${currentPlayerCount} players shown`} 
             </div>
@@ -243,23 +243,25 @@ function PlayerList(props){
                             **
                         </Grid>
                     </Grid>
-                    {currentList.goalKeepers.slice(listNumber*8,listNumber*8+8).map((el)=>(
-                        <Grid container className = "x-font5" className = "x-player-list-item">
+                    {currentList.goalKeepers.slice(listNumber*8,listNumber*8+8).map((el, idx)=>(
+                        <Grid container className = "x-font5" className = "x-player-list-item" key = {idx}>
                             <Grid item xs = {1} sm = {1} md = {2} className = "text-center">
                                 <LiveHelpIcon style = {{width: "40px", height: "40px"}}  onClick = {()=>console.log("very good")}/>
                             </Grid>
-                            <Grid container xs = {11} sm = {11} md = {10} onClick = {(e)=>addFromList(e,el.id)}>
-                                <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
-                                    <img src = {`/img/shirts/${el.team}/keeper.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null}/>
-                                </Grid>
-                                <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.second_name}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.now_cost/10}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.total_points}
+                            <Grid item xs = {11} sm = {11} md = {10}>
+                                <Grid container onClick = {(e)=>addFromList(e,el.id)}>
+                                    <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
+                                        <img src = {`/img/shirts/${el.team}/keeper.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null}/>
+                                    </Grid>
+                                    <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.second_name}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.now_cost/10}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.total_points}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -278,23 +280,25 @@ function PlayerList(props){
                             **
                         </Grid>
                     </Grid>
-                    {currentList.defenders.slice(listNumber*8,listNumber*8+8).map((el)=>(
-                        <Grid container className = "x-font5" className = "x-player-list-item">
+                    {currentList.defenders.slice(listNumber*8,listNumber*8+8).map((el, idx)=>(
+                        <Grid container className = "x-font5" className = "x-player-list-item" key = {idx}>
                             <Grid item xs = {1} sm = {1} md = {2} className = "text-center">
                                 <LiveHelpIcon style = {{width: "40px", height: "40px"}}  onClick = {()=>console.log("very good")}/>
                             </Grid>
-                            <Grid container xs = {11} sm = {11} md = {10} onClick = {(e)=>addFromList(e,el.id)}>
-                                <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
-                                    <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
-                                </Grid>
-                                <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.second_name}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.now_cost/10}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.total_points}
+                            <Grid item xs = {11} sm = {11} md = {10}>
+                                <Grid container onClick = {(e)=>addFromList(e,el.id)}>
+                                    <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
+                                        <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
+                                    </Grid>
+                                    <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.second_name}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.now_cost/10}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.total_points}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -318,18 +322,20 @@ function PlayerList(props){
                             <Grid item xs = {1} sm = {1} md = {2} className = "text-center">
                                 <LiveHelpIcon style = {{width: "40px", height: "40px"}}  onClick = {()=>console.log("very good")}/>
                             </Grid>
-                            <Grid container xs = {11} sm = {11} md = {10} onClick = {(e)=>addFromList(e,el.id)}>
-                                <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
-                                    <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
-                                </Grid>
-                                <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.second_name}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.now_cost/10}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.total_points}
+                            <Grid item xs = {11} sm = {11} md = {10}>
+                                <Grid container onClick = {(e)=>addFromList(e,el.id)}>
+                                    <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
+                                        <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
+                                    </Grid>
+                                    <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.second_name}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.now_cost/10}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.total_points}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -353,18 +359,20 @@ function PlayerList(props){
                             <Grid item xs = {1} sm = {1} md = {2} className = "text-center">
                                 <LiveHelpIcon style = {{width: "40px", height: "40px"}}  onClick = {()=>console.log("very good")}/>
                             </Grid>
-                            <Grid container xs = {11} sm = {11} md = {10} onClick = {(e)=>addFromList(e,el.id)}>
-                                <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
-                                    <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
-                                </Grid>
-                                <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null} >
-                                    {el.second_name}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.now_cost/10}
-                                </Grid>
-                                <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
-                                    {el.total_points}
+                            <Grid item xs = {11} sm = {11} md = {10}>
+                                <Grid container onClick = {(e)=>addFromList(e,el.id)}>
+                                    <Grid item xs = {2} sm = {2} md = {1} className = "pr-1 mt-1 text-center">
+                                        <img src = {`/img/shirts/${el.team}/other.png`} alt = "player" width = "20px" style = {playerIdArray.includes(el.id)?{opacity: "0.6"}:null} />
+                                    </Grid>
+                                    <Grid item xs = {4} sm = {4} md = {4} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null} >
+                                        {el.second_name}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.now_cost/10}
+                                    </Grid>
+                                    <Grid item xs = {3} sm = {3} md = {3} className = "mt-2" style = {playerIdArray.includes(el.id)?{color: "grey"}:null}>
+                                        {el.total_points}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -373,11 +381,11 @@ function PlayerList(props){
                 </div>
             </div>
             <div className = "mt-2 text-center">
-                <IconButton><FirstPageIcon color = "primary" onClick = {handleFirst}/></IconButton>
-                <IconButton><NavigateBeforeIcon color = "primary" onClick = {handleBefore}/></IconButton>
+                <IconButton onClick = {handleFirst}><FirstPageIcon color = "primary"/></IconButton>
+                <IconButton onClick = {handleBefore}><NavigateBeforeIcon color = "primary"/></IconButton>
                 <span>{`${listNumber+1}/${parseInt(currentPlayerCount/32+1)}`}</span>
-                <IconButton><NavigateNextIcon color = "primary" onClick = {handleNext}/></IconButton>
-                <IconButton><LastPageIcon color = "primary" onClick = {handleLast}/></IconButton>
+                <IconButton onClick = {handleNext}><NavigateNextIcon color = "primary"/></IconButton>
+                <IconButton onClick = {handleLast}><LastPageIcon color = "primary"/></IconButton>
             </div>
         </div>
     )

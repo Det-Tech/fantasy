@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useRouter} from 'next/router';
-import Link from 'next/link';
-import {Navbar, Nav, NavDropdown, Button, Form, FormControl} from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown, Button} from 'react-bootstrap';
 
-function Navigation(props){
-    const router = useRouter();
+function Navigation(){
     const [mobileView, setMobileView] = useState(false);
+    const [walletAddress, setWalletAddress] = useState("");
 
     useEffect(() => {
         const setResponsiveness = () => {
@@ -19,11 +17,19 @@ function Navigation(props){
         window.addEventListener("resize", () => setResponsiveness());
       }, []);
 
-      const handleConnect = () =>{
+      useEffect(()=>{
+          console.log(window.ethereum.selectedAddress)
+          if(window.ethereum.selectedAddress!==null){
+              setWalletAddress(window.ethereum.selectedAddress);
+          }
+      })
+
+      const handleConnect = (e) =>{
+          e.preventDefault();
         if (typeof window !== "undefined") {
             try {
               window.ethereum.enable().then(async()=> {
-
+                setWalletAddress(window.ethereum.selectedAddress);
               })
             }
             catch(e){
@@ -76,7 +82,7 @@ function Navigation(props){
                     <Nav.Link href="/profile/personal"  className = "y-font1"><img src = "/img/fantasy/userCircle.png" alt = "profile"/> Profile</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
-            <Button variant="outline-success" style = {{position: "absolute", right: "100px", fontSize: "20px"}} onClick = {handleConnect}>{typeof window !== "undefined"?window.ethereum?window.ethereum.selectedAddress!==null?`${window.ethereum.selectedAddress.slice(0,6)}...`:"Connect":"please install metamask":null}</Button>
+            <Button variant="outline-success" style = {{position: "absolute", right: "100px", fontSize: "20px"}} onClick = {handleConnect}>{typeof window !== "undefined"?window.ethereum?window.ethereum.selectedAddress!==null?`${walletAddress.slice(0,6)}...`:"Connect":"please install metamask":null}</Button>
             </Navbar>
         </div>
     )

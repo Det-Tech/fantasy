@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useUser } from "../../../lib/hooks";
 
 function UserCard(props){
     const {auth} = props;

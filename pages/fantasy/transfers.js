@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useRouter} from 'next/router';
 import { makeStyles } from "@material-ui/core/styles";
 import TopHead from '../../components/fantasy/head';
@@ -7,14 +7,15 @@ import PlayerList from '../../components/fantasy/playerList/playerList';
 import TransferGround from '../../components/fantasy/ground/transferGround';
 import ControlDialog from '../../components/fantasy/transfer/controlDialog';
 import ListControlDialog from '../../components/fantasy/transfer/listDialog';
-import { useUser } from "../../lib/hooks";
 import { toast, ToastContainer } from 'react-nextjs-toast';
 import {ethers} from 'ethers';
 import profileContract from '../../lib/abi/profile';
+import { ProfileContext } from '../../context/profile';
+import fearnContract from '../../lib/abi/fearn';
+import { ApiContext } from '../../context/fantasyApi';
+import Axios from 'axios';
 
 import {Grid} from "@material-ui/core";
-import Axios from 'axios';
-import { useDispatch } from 'react-redux';
   
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -32,13 +33,11 @@ import { useDispatch } from 'react-redux';
   }
   }
 
-function Transfers(props){
-    const {auth} = props;
-    const [user, { mutate }] = useUser();
-    const dispatch = useDispatch();
+function Transfers(){
+    const apiData = useContext(ApiContext);
+    const {playerData} = useContext(ProfileContext);
     const classes = useStyles();
     const router = useRouter();
-    const [apiFlag, setApiFlag] = useState(true);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(false);
     const [id, setId] = useState();
@@ -80,39 +79,34 @@ function Transfers(props){
   
    
       useEffect(()=>{
-        if(apiFlag){
-            setApiFlag(false);
-            Axios.post("/api/fantasy/bootstrap-api")
-            .then((res)=>{
-                var temp1 = [];
-                var temp2 = [];
-                var temp3 = [];
-                var temp4 = [];
-                console.log(res.data.elements);
-                setTotalPlayerApi(res.data.elements);
-                res.data.elements.map((el)=>{
-                    if(el.element_type==1){
-                        temp1.push(el);
-                    }
-                    if(el.element_type==2){
-                        temp2.push(el);
-                    }
-                    if(el.element_type==3){
-                        temp3.push(el);
-                    }
-                    if(el.element_type==4){
-                        temp4.push(el);
-                    }
-                })
-                setTotalList({
-                    goalKeepers:temp1.sort(playerArrange),
-                    defenders:temp2.sort(playerArrange),
-                    midFielders:temp3.sort(playerArrange),
-                    forwarders: temp4.sort(playerArrange)
-                })
-            })
+        if(apiData&&apiData.apiData){
+          var temp1 = [];
+          var temp2 = [];
+          var temp3 = [];
+          var temp4 = [];
+          setTotalPlayerApi(apiData.apiData.elements);
+          apiData.apiData.elements.map((el)=>{
+              if(el.element_type==1){
+                  temp1.push(el);
+              }
+              if(el.element_type==2){
+                  temp2.push(el);
+              }
+              if(el.element_type==3){
+                  temp3.push(el);
+              }
+              if(el.element_type==4){
+                  temp4.push(el);
+              }
+          })
+          setTotalList({
+              goalKeepers:temp1.sort(playerArrange),
+              defenders:temp2.sort(playerArrange),
+              midFielders:temp3.sort(playerArrange),
+              forwarders: temp4.sort(playerArrange)
+          })
         }
-    })
+    },[apiData])
 
 
 
@@ -462,69 +456,79 @@ function Transfers(props){
     }
   
     const saveTeam = async () =>{
-      if(keeperCount+defenderCount+fielderCount+forwardsCount == 15){
-        if(1000>=(totalInfo[0][2]+totalInfo[1][2]+totalInfo[2][2]+totalInfo[3][2]+totalInfo[4][2]+totalInfo[5][2]+totalInfo[6][2]+totalInfo[7][2]+totalInfo[8][2]+totalInfo[9][2]+totalInfo[10][2]+totalInfo[11][2]+totalInfo[12][2]+totalInfo[13][2]+totalInfo[14][2])){
-          const provider =new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(profileContract.kovan,profileContract.abi,signer);
-            const UserAddress=await signer.getAddress();
-            var userdata = await contract.profiles(UserAddress).catch((err)=>console.log(err));
-            console.log(typeof(userdata));
-
-            const playerInfo = {
-                      players: totalInfo,
-                      main:[
-                        totalInfo[0],
-                        totalInfo[2],
-                        totalInfo[3],
-                        totalInfo[4],
-                        totalInfo[5],
-                        totalInfo[7],
-                        totalInfo[8],
-                        totalInfo[9],
-                        totalInfo[10],
-                        totalInfo[12],
-                        totalInfo[13]
-                      ],
-                      candidate:[
-                        totalInfo[1],
-                        totalInfo[6],
-                        totalInfo[11],
-                        totalInfo[14]
-                      ]
+      if(window.ethereum){
+        if(keeperCount+defenderCount+fielderCount+forwardsCount == 15){
+            const provider =new ethers.providers.Web3Provider(window.ethereum);
+              const signer = provider.getSigner();
+              const tokenContract = new ethers.Contract(fearnContract.kovan, fearnContract.abi, signer);
+              const contract = new ethers.Contract(profileContract.kovan,profileContract.abi,signer);
+              const amount = (totalInfo[0][2]+totalInfo[1][2]+totalInfo[2][2]+totalInfo[3][2]+totalInfo[4][2]+totalInfo[5][2]+totalInfo[6][2]+totalInfo[7][2]+totalInfo[8][2]+totalInfo[9][2]+totalInfo[10][2]+totalInfo[11][2]+totalInfo[12][2]+totalInfo[13][2]+totalInfo[14][2]);
+              var currentAmount;
+              if(playerData.length===0){
+                console.log("1 is",playerData)
+                currentAmount=0;
+              }
+              else{
+                console.log("2 is",playerData)
+                currentAmount=JSON.parse(playerData).value;
+              }
+              const moreAmount = amount-currentAmount;
+              console.log(currentAmount)
+              if(moreAmount>0){
+                console.log(process.env.NEXT_PUBLIC_ADMINADDRESS, moreAmount);
+                var tx = await tokenContract.transfer(process.env.NEXT_PUBLIC_ADMINADDRESS, moreAmount);
+                if(tx!=null){
+                  await tx.wait();
                 }
-
-                    console.log(typeof(playerInfo));
-
-            const userInfo = {
-              ...JSON.parse(userdata),
-              ...playerInfo
-            }
-
-            var tx =await contract.saveProfile(JSON.stringify(userInfo));
-            if(tx!=null){
-                console.log(tx);
-                await provider.waitForTransaction(tx.hash)
-                        .catch((err)=>{
-                            console.log(err)
-                        });
-                  router.push(`/fantasy/pick-team`);
-            }
-          }
-          else{
-                toast.notify('now cost is not enough!', {
-                  duration: 5,
-                  type: "error"
+              }
+              else if(moreAmount<0){
+                Axios.post("/api/fantasy/fearn-crypt",{address: window.ethereum.selectedAddress, amount: moreAmount})
+                .then((res)=>{
+                  console.log(res.data);
                 })
               }
-        }
-        else{
-            toast.notify('please select 15 members for your team!', {
-              duration: 5,
-              type: "error"
-            })
+
+              const playerInfo = {
+                        main:[
+                          totalInfo[0],
+                          totalInfo[2],
+                          totalInfo[3],
+                          totalInfo[4],
+                          totalInfo[5],
+                          totalInfo[7],
+                          totalInfo[8],
+                          totalInfo[9],
+                          totalInfo[10],
+                          totalInfo[12],
+                          totalInfo[13]
+                        ],
+                        candidate:[
+                          totalInfo[1],
+                          totalInfo[6],
+                          totalInfo[11],
+                          totalInfo[14]
+                        ],
+                        value:amount
+                  }
+
+              var tx =await contract.updatePlayers(JSON.stringify(playerInfo));
+              if(tx!=null){
+                  console.log(tx);
+                  await provider.waitForTransaction(tx.hash)
+                          .catch((err)=>{
+                              console.log(err)
+                          });
+                  window.location.reload();
+              }
           }
-      }
+          else{
+              toast.notify('please select 15 members for your team!', {
+                duration: 5,
+                type: "error"
+              })
+            }
+        }
+    }
     return(
         <div>
           <ToastContainer align={"center"} position={"bottom"}/>

@@ -35,6 +35,16 @@ a:hover{
   margin-left: 20%!important;
   width: 60%!important;
 }
+.x-Grid5{
+  margin-top: 3%;
+  margin-left: 20%!important;
+  width: 60%!important;
+}
+.x-Grid6{
+  margin-top: 3%;
+  margin-left: 10%!important;
+  width: 80%!important;
+}
 
 .x-font1{
   font-size: 30px;
@@ -57,6 +67,12 @@ a:hover{
   font-size: 20px;
   color:black;
   font-weight: 600;
+  font-family: initial;
+}
+.x-font4-short{
+  font-size: 20px;
+  color:black;
+  font-weight: 500;
   font-family: initial;
 }
 .x-font5{
@@ -202,6 +218,17 @@ a:hover{
   outline: none;
   border-radius: 5px;
   padding: 1%;
+}
+
+.x-button8{
+  background-color: #37003c;
+  width: 200px;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5%;
 }
 
 .x-input1{
@@ -498,4 +525,43 @@ padding: 0.5%;
   padding-left: 30px;
   /* display: inline-block; */
   float: right;
+}
+.x-league-button{
+  background-color: #19E8E2;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 2%;
+}
+.x-league-create-input{
+  width: 100%;
+  height: 40px;
+}
+.x-league-swap-button1{
+  background-color: #25d1f3;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 160px;
+  border: none;
+  outline: none;
+  padding: 1%;
+}
+.x-league-swap-button2{
+  background-color: #25d1f3;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 160px;
+  border: none;
+  outline: none;
+  padding: 1%;
+}
+
+.x-league-table-row:hover{
+  cursor: pointer;
+}
+
+.x-league-table-row:hover{
+  cursor: pointer;
+  opacity: 0.8;
 }

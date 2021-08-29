@@ -76,7 +76,7 @@ SimpleDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleListItemClick: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
+  selectedValue: PropTypes.bool.isRequired,
 };
 
 // export default function SimpleDialogDemo() {

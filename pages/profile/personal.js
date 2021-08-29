@@ -12,10 +12,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import profileContract from '../../lib/abi/profile';
 import {ethers} from "ethers"
-import { useUser } from "../../lib/hooks";
 
 function Personal(props){
-    const [user, { mutate }] = useUser();
     const router = useRouter()
     const [flag, setFlag] = useState(true);
     const userName = useRef();
@@ -120,12 +118,8 @@ function Personal(props){
                     .catch((err)=>{
                         console.log(err)
                     });
-                    mutate(user_data);
                 router.push('/');
         }
-        // const UserAddress=await signer.getAddress();
-        // var userdata = await contract.profiles(UserAddress);
-        // console.log(JSON.parse(userdata));
     }
     return(
         <div>

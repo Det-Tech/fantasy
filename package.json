@@ -37,6 +37,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.6.0",
     "react-dom": "^16.13.1",
+    "react-dropdown-now": "^6.0.1",
     "react-multi-carousel": "^2.6.3",
     "react-nextjs-toast": "^1.2.5",
     "react-redux": "^7.2.4",
